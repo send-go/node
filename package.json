@@ -1,0 +1,45 @@
+{
+  "name": "@sendgo/node",
+  "version": "1.0.0",
+  "description": "Sendgo Node.js SDK — 카카오 알림톡/친구톡, SMS/LMS/MMS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "sendgo",
+    "kakao",
+    "alimtalk",
+    "friendtalk",
+    "sms",
+    "notification",
+    "korea"
+  ],
+  "author": "Sendgo <dev@sendgo.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sendgo-dev/sendgo-node"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0"
+  }
+}
