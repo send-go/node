@@ -54,7 +54,7 @@ export interface SendgoConfig {
   kakaoSenderKey?: string;
   /** API 버전 (기본값: 'v1') */
   apiVersion?: 'v1' | 'v2';
-  /** API 기본 URL (기본값: 'https://api.sendgo.io') */
+  /** API 기본 URL (기본값: 'https://sendgo.io') */
   baseUrl?: string;
 }
 

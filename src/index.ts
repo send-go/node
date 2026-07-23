@@ -11,7 +11,7 @@ export { SendgoError } from './errors';
 
 const DEFAULTS = {
   apiVersion: 'v1' as const,
-  baseUrl: 'https://api.sendgo.io',
+  baseUrl: 'https://sendgo.io',
   smsSenderKey: '',
   kakaoSenderKey: '',
 };

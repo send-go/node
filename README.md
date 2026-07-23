@@ -452,7 +452,7 @@ try {
 | `kakaoSenderKey` | `string` | 선택 | — | 카카오 발신프로필 키 |
 | `smsSenderKey` | `string` | 선택 | — | SMS 발신자 키 |
 | `apiVersion` | `'v1' \| 'v2'` | 선택 | `'v1'` | API 버전 |
-| `baseUrl` | `string` | 선택 | `'https://api.sendgo.io'` | API 기본 URL |
+| `baseUrl` | `string` | 선택 | `'https://sendgo.io'` | API 기본 URL |
 
 ---
 
