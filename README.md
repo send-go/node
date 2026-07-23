@@ -481,7 +481,7 @@ A. [Sendgo 콘솔](https://sendgo.io) → 알림톡 템플릿 → 템플릿 작�
 |-----------|--------|--------|
 | React / Next.js | `@sendgo/react` | [sendgo-react](https://github.com/send-go/react) |
 | Vue.js / Nuxt | `@sendgo/vue` | [sendgo-vue](https://github.com/send-go/vue) |
-| Spring Boot | `io.sendgo:sendgo-spring` | [sendgo-spring-boot-starter](https://github.com/send-go/spring) |
+| Spring Boot | `io.sendgo:sendgo-spring` | [spring](https://github.com/send-go/spring) |
 | Python | `sendgo-python` | [sendgo-python](https://github.com/send-go/python) |
 | 전체 목록 | — | [send-go GitHub 조직](https://github.com/send-go) |
 
