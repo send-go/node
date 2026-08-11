@@ -76,7 +76,6 @@ export interface AlimtalkParams {
   smsContent?: string;
 }
 
-/** 친구톡 전송 파라미터 */
 export interface FriendtalkParams {
   /** 메시지 본문 (필수) */
   content: string;
@@ -111,6 +110,70 @@ export interface FriendtalkParams {
 }
 
 /** SMS/LMS/MMS 전송 파라미터 */
+/** 브랜드메시지 발송 대상. */
+export type BrandMessageTargeting =
+  /** 채널 친구 */
+  | 'M'
+  /** 채널 친구가 아닌 수신자 */
+  | 'N'
+  /** 친구 + 비친구 전체 */
+  | 'I'
+  /** 수신 동의한 전체 채널 친구 (동보, contacts 불필요) */
+  | 'F';
+
+/**
+ * 브랜드메시지 전송 파라미터.
+ *
+ * 친구톡 파라미터를 그대로 쓰면서 `targeting` 과 `friendTemplateUuid` 가 추가됩니다.
+ * `messageType` 에는 친구톡 코드(FT/FI/FW/FL/FC/FM/FP/FA)를 그대로 넘기며,
+ * 브랜드메시지 코드 변환은 서버가 처리합니다.
+ */
+export interface BrandMessageParams extends Omit<FriendtalkParams, 'content' | 'contacts'> {
+  /** 브랜드 템플릿 UUID (필수) */
+  friendTemplateUuid: string;
+  /** 발송 대상 (기본값: 'M') */
+  targeting?: BrandMessageTargeting;
+  /** 수신자 목록. targeting 이 'M' | 'N' | 'I' 일 때 필수 */
+  contacts?: Contact[];
+  /** 메시지 본문 */
+  content?: string;
+  /** 푸시 알림 여부 (기본값: 'Y') */
+  pushAlarm?: 'Y' | 'N';
+  /** 동보(targeting='F') 발송 대상 그룹 키 */
+  friendGroupKey?: string;
+  /** 쿠폰 정보 */
+  coupon?: object;
+  /** 아이템 리스트 (BL) */
+  item?: object;
+  /** 커머스 정보 (BM) */
+  commerce?: object;
+  /** 캐러셀 리스트 (BC / BA) */
+  list?: object[];
+  /** 캐러셀 헤드 */
+  head?: object;
+  /** 캐러셀 테일 */
+  tail?: object;
+  /** 동영상 정보 (BP) */
+  video?: object;
+  /** 부가 정보 */
+  additionalContent?: string;
+  /** 수신거부(080) 서비스 ID */
+  rejectServiceId?: string;
+  /** 결과 수신 웹훅 URL */
+  webhooks?: string[];
+}
+
+/** 브랜드메시지 캠페인 목록 조회 파라미터. */
+export interface BrandMessageListParams {
+  /** 조회 시작일 (기본값: 90일 전) */
+  from?: string;
+  /** 조회 종료일 (기본값: 현재) */
+  to?: string;
+  /** 페이지당 개수 (기본값: 30) */
+  count?: number;
+}
+
+/** 친구톡 전송 파라미터 */
 export interface SmsParams {
   /** 메시지 본문 (필수) */
   content: string;
@@ -140,4 +203,32 @@ export interface SendgoResponse {
   code?: string;
   /** 에러 메시지 (실패 시) */
   message?: string;
+}
+
+/** 짧은 URL 생성 파라미터. */
+export interface ShortUrlParams {
+  /** 줄일 원본 URL. http/https 만 허용된다. */
+  targetUrl: string;
+  /** 관리 화면에서 구분하기 위한 이름. */
+  title?: string | null;
+  /** 이 시각 이후에는 리다이렉트하지 않고 410 Gone 을 반환한다. */
+  expiresAt?: string | null;
+  /**
+   * true 면 같은 URL 이라도 새 코드를 만든다.
+   * 캠페인별로 반응을 분리해 집계할 때 사용한다.
+   */
+  forceNew?: boolean;
+}
+
+/** 짧은 URL 목록 조회 파라미터. */
+export interface ShortUrlListParams {
+  from?: string;
+  to?: string;
+  count?: number;
+}
+
+/** 짧은 URL 통계 조회 파라미터. */
+export interface ShortUrlStatsParams {
+  from?: string;
+  to?: string;
 }

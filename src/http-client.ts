@@ -16,24 +16,46 @@ export class HttpClient {
     url: string,
     body: Record<string, unknown>,
   ): Promise<T> {
-    return this.doPost<T>(url, body, false);
+    return this.request<T>('POST', url, body, false);
   }
 
-  private async doPost<T>(
+  /** GET with an optional query string — used by the campaign lookup endpoints. */
+  async get<T = Record<string, unknown>>(
     url: string,
-    body: Record<string, unknown>,
+    query: Record<string, string | number | undefined> = {},
+  ): Promise<T> {
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(query)) {
+      if (value !== undefined) params.append(key, String(value));
+    }
+    const search = params.toString();
+
+    return this.request<T>('GET', search ? `${url}?${search}` : url, undefined, false);
+  }
+
+  /**
+   * `request()` drives the verb, so DELETE only needs to skip the body.
+   */
+  async delete<T = Record<string, unknown>>(url: string): Promise<T> {
+    return this.request<T>('DELETE', url, undefined, false);
+  }
+
+  private async request<T>(
+    method: 'GET' | 'POST' | 'DELETE',
+    url: string,
+    body: Record<string, unknown> | undefined,
     isRetry: boolean,
   ): Promise<T> {
     const token = await this.tokenManager.getToken();
     const authHeader = this.makeBearerAuth(token);
 
+    const headers: Record<string, string> = { Authorization: authHeader };
+    if (body !== undefined) headers['Content-Type'] = 'application/json';
+
     const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: authHeader,
-      },
-      body: JSON.stringify(body),
+      method,
+      headers,
+      body: body === undefined ? undefined : JSON.stringify(body),
     });
 
     const responseBody = (await response.json().catch(() => ({}))) as Record<string, unknown>;
@@ -44,7 +66,7 @@ export class HttpClient {
 
       if (!isRetry && this.tokenManager.shouldRefresh(response.status, errorCode)) {
         await this.tokenManager.invalidateAndRefresh();
-        return this.doPost<T>(url, body, true);
+        return this.request<T>(method, url, body, true);
       }
 
       throw SendgoError.fromResponse(response.status, responseBody, endpoint, this.config.apiVersion);
@@ -63,5 +85,11 @@ export class HttpClient {
 
   buildUrl(resource: string): string {
     return `${this.config.baseUrl}/api/${this.config.apiVersion}/${resource}/send`;
+  }
+
+  /** Resource URL without the `/send` suffix, for list and detail lookups. */
+  buildResourceUrl(resource: string, path = ''): string {
+    const base = `${this.config.baseUrl}/api/${this.config.apiVersion}/${resource}`;
+    return path ? `${base}/${path}` : base;
   }
 }
