@@ -1,7 +1,7 @@
 {
   "name": "@sendgo/node",
-  "version": "1.2.0",
-  "description": "Sendgo Node.js SDK — 카카오 알림톡/친구톡, SMS/LMS/MMS",
+  "version": "1.2.1",
+  "description": "Sendgo Node.js SDK — 카카오 알림톡/브랜드메시지, SMS/LMS/MMS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -24,6 +24,7 @@
     "sendgo",
     "kakao",
     "alimtalk",
+    "brand-message",
     "friendtalk",
     "sms",
     "notification",
