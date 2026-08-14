@@ -76,6 +76,12 @@ export interface AlimtalkParams {
   smsContent?: string;
 }
 
+/**
+ * 친구톡 전송 파라미터.
+ *
+ * 친구톡 자체는 2025-12-31 종료되었으나, 이 필드 집합은 `BrandMessageParams`
+ * 의 베이스로 그대로 쓰이므로 타입은 유지한다 (OpenAPI 의 `allOf` 와 동일).
+ */
 export interface FriendtalkParams {
   /** 메시지 본문 (필수) */
   content: string;

@@ -44,7 +44,11 @@ const DEFAULTS = {
 export class Sendgo {
   /** 카카오 알림톡 전송 */
   readonly alimtalk: AlimtalkService;
-  /** 카카오 친구톡 전송 */
+  /**
+   * 카카오 친구톡 전송.
+   *
+   * @deprecated 친구톡은 2025-12-31 종료. `brandMessage` 를 사용하세요.
+   */
   readonly friendtalk: FriendtalkService;
   /** 카카오 브랜드메시지 — 친구톡의 후속 채널. v2 전용. */
   readonly brandMessage: BrandMessageService;
