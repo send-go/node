@@ -149,3 +149,6 @@ export class Sendgo {
 }
 
 export default Sendgo;
+
+export { AccountClient } from './account';
+export type { AccountConfig, AccountResponse, ApiKeyCreateParams, AllowedIpParams } from './account';
