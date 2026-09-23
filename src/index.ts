@@ -1,3 +1,4 @@
+import { TemplateFolderService } from './template-folder';
 import { AlimtalkService } from './alimtalk';
 import { BrandMessageService } from './brand-message';
 import { BrandTemplateService } from './brand-template';
@@ -107,6 +108,8 @@ export class Sendgo {
 
   /** 카카오 발신프로필(채널) 등록·동기화. v2 전용, 기업 계정 전용. */
   readonly kakaoSenders: KakaoSenderService;
+  /** 템플릿 공용 폴더. v2 전용, 기업 계정 전용. */
+  readonly templateFolders: TemplateFolderService;
   /** 알림톡 템플릿 등록·수정·검수 요청. v2 전용, 기업 계정 전용. */
   readonly noticeTemplates: NoticeTemplateService;
   /** 브랜드메시지(구 친구톡) 템플릿 관리. v2 전용, 기업 계정 전용. */
@@ -138,6 +141,7 @@ export class Sendgo {
     this.sms = new SmsService(http, fullConfig);
 
     this.kakaoSenders = new KakaoSenderService(http, fullConfig);
+    this.templateFolders = new TemplateFolderService(http);
     this.noticeTemplates = new NoticeTemplateService(http, fullConfig);
     this.brandTemplates = new BrandTemplateService(http, fullConfig);
     this.senderRegistration = new SenderRegistrationService(http, fullConfig);
@@ -152,3 +156,6 @@ export default Sendgo;
 
 export { AccountClient } from './account';
 export type { AccountConfig, AccountResponse, ApiKeyCreateParams, AllowedIpParams } from './account';
+
+export { TemplateFolderService } from './template-folder';
+export type { TemplateFolderType, TemplateFolderListParams, TemplateFolderCreateParams, TemplateFolderAssignParams } from './types';

@@ -308,6 +308,8 @@ export type NoticeExpiryType = 'none' | 'rights_based' | 'promo';
  * `POLICY_VALIDATION_FAILED` 로 거절된다.
  */
 export interface NoticeTemplateParams {
+  /** 등록 시 폴더 지정 또는 목록 필터(none: 미분류). 수정은 templateFolders.assign 사용. */
+  folderUuid?: string;
   kakaoSenderKey: string;
   templateName: string;
   templateContent: string;
@@ -342,6 +344,8 @@ export interface NoticeTemplateParams {
 
 /** 알림톡 템플릿 목록 조회 파라미터. */
 export interface NoticeTemplateListParams {
+  /** 등록 시 폴더 지정 또는 목록 필터(none: 미분류). 수정은 templateFolders.assign 사용. */
+  folderUuid?: string;
   kakaoSenderKey?: string;
   inspectionStatus?: NoticeTemplateInspectionStatus | 'BLOCK' | 'DORMANT';
   search?: string;
@@ -354,6 +358,8 @@ export interface NoticeTemplateListParams {
  * `templateType` 은 친구톡 표기를 그대로 쓴다 — 서버가 chatBubbleType 으로 변환한다.
  */
 export interface BrandTemplateParams {
+  /** 등록 시 폴더 지정 또는 목록 필터(none: 미분류). 수정은 templateFolders.assign 사용. */
+  folderUuid?: string;
   kakaoSenderKey: string;
   templateName: string;
   templateType: FriendtalkMessageType;
@@ -377,6 +383,8 @@ export interface BrandTemplateParams {
 
 /** 브랜드메시지 템플릿 목록 조회 파라미터. */
 export interface BrandTemplateListParams {
+  /** 등록 시 폴더 지정 또는 목록 필터(none: 미분류). 수정은 templateFolders.assign 사용. */
+  folderUuid?: string;
   kakaoSenderKey?: string;
   search?: string;
   count?: number;
@@ -508,4 +516,22 @@ export interface RejectedNumberListParams {
   since?: string;
   search?: string;
   count?: number;
+}
+
+/** 폴더에 담긴 템플릿 유형. */
+export type TemplateFolderType = 'notice' | 'brand';
+export interface TemplateFolderListParams {
+  templateType?: TemplateFolderType;
+  kakaoSenderKey?: string;
+}
+export interface TemplateFolderCreateParams {
+  name: string;
+  parentUuid?: string | null;
+}
+export interface TemplateFolderAssignParams {
+  templateType: TemplateFolderType;
+  kakaoSenderKey: string;
+  templateCodes: string[];
+  /** null이면 미분류로 이동. 반드시 필드를 전달합니다. */
+  folderUuid: string | null;
 }
