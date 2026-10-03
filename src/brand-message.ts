@@ -17,7 +17,7 @@ import type {
  * 수신 동의한 전체 채널 친구에게 동보 발송할 수 있습니다(targeting='F').
  *
  * @example
- * // 단건 발송 — 채널 친구 대상
+ * // 단건 발송 — 지정 수신자 대상
  * await sendgo.brandMessage.send({
  *   targeting: 'M',
  *   messageType: 'FL',
@@ -40,7 +40,7 @@ export class BrandMessageService {
   /**
    * 브랜드메시지를 전송합니다.
    *
-   * `targeting` 이 'M' | 'N' | 'I' 이면 `contacts` 가 필요하고 응답 `data` 에
+   * `targeting` 이 'M' | 'N' | 'I' | 'O' 이면 `contacts` 가 필요하고 응답 `data` 에
    * 발송 건수(`sentCount`)가 담깁니다. 'F' 는 동보 발송이라 `contacts` 없이
    * 접수 여부(`accepted`)만 반환됩니다 — 그 경우 broadcast() 가 더 명확합니다.
    *

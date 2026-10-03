@@ -1,3 +1,6 @@
+import { EmailService } from './email';
+export { EmailService } from './email';
+export type { EmailSendParams, EmailResponse, EmailQuery } from './email';
 import { TemplateFolderService } from './template-folder';
 import { AlimtalkService } from './alimtalk';
 import { BrandMessageService } from './brand-message';
@@ -87,6 +90,7 @@ const DEFAULTS = {
  * });
  */
 export class Sendgo {
+  readonly email: EmailService;
   /** 카카오 알림톡 전송 */
   readonly alimtalk: AlimtalkService;
   /**
@@ -134,6 +138,7 @@ export class Sendgo {
     const tokenManager = new TokenManager(fullConfig);
     const http = new HttpClient(fullConfig, tokenManager);
 
+    this.email = EmailService.fromConfig(fullConfig, tokenManager);
     this.alimtalk = new AlimtalkService(http, fullConfig);
     this.friendtalk = new FriendtalkService(http, fullConfig);
     this.brandMessage = new BrandMessageService(http, fullConfig);

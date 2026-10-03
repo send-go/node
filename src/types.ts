@@ -118,12 +118,14 @@ export interface FriendtalkParams {
 /** SMS/LMS/MMS 전송 파라미터 */
 /** 브랜드메시지 발송 대상. */
 export type BrandMessageTargeting =
-  /** 채널 친구 */
+  /** 친구 + 비친구 */
   | 'M'
   /** 채널 친구가 아닌 수신자 */
   | 'N'
-  /** 친구 + 비친구 전체 */
+  /** 친구 교집합 */
   | 'I'
+  /** 친구만 */
+  | 'O'
   /** 수신 동의한 전체 채널 친구 (동보, contacts 불필요) */
   | 'F';
 
@@ -139,7 +141,7 @@ export interface BrandMessageParams extends Omit<FriendtalkParams, 'content' | '
   friendTemplateUuid: string;
   /** 발송 대상 (기본값: 'M') */
   targeting?: BrandMessageTargeting;
-  /** 수신자 목록. targeting 이 'M' | 'N' | 'I' 일 때 필수 */
+  /** 수신자 목록. targeting 이 'M' | 'N' | 'I' | 'O' 일 때 필수 */
   contacts?: Contact[];
   /** 메시지 본문 */
   content?: string;
